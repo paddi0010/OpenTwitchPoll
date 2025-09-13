@@ -1,0 +1,35 @@
+{
+  "name": "opentwitchpoll",
+  "version": "0.1.0",
+  "description": "A tool for creating polls for Twitch streamers without affiliate status.",
+  "main": "script.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paddi0010/OpenTwitchPoll.git"
+  },
+  "keywords": [
+    "twitch",
+    "poll",
+    "vote",
+    "non-affiliate",
+    "streaming",
+    "overlay",
+    "chat-tool",
+    "twitch-tools",
+    "stream-tools",
+    "stream-polls"
+  ],
+  "author": "paddi0010",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paddi0010/OpenTwitchPoll/issues"
+  },
+  "homepage": "https://github.com/paddi0010/OpenTwitchPoll#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "tmi.js": "^1.8.5"
+  }
+}
