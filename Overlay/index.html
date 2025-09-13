@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-<meta charset="UTF-8">
-<title>Task Overlay</title>
-<link rel="stylesheet" href="style.css">
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Poll Overlay</title>
+    <link rel="stylesheet" href="pollOverlay.css">
 </head>
 <body>
-<h2>📋 Aufgaben</h2>
-<ul id="task-list"></ul>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="overlay.js"></script>
+    <div id="overlay">
+        <h2 id="question">Warte auf Umfrage....</h2>
+        <ul id="options"></ul>
+    </div>
+    <script src="pollOverlay.js"></script>
 </body>
 </html>
