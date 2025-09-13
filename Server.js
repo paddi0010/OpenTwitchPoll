@@ -7,53 +7,51 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
-// Statische Dateien
+// Serve static files
 app.use(express.static(path.join(__dirname, "./Overlay/index.html")));
 
-
-// Overlay direkt erreichbar machen
+// Make overlay directly accessible
 app.get("/overlay.html", (req, res) => {
   res.sendFile(path.join(__dirname, "./Overlay/index.html"));
 });
 
-
-
-// Tasks
-let tasks = [];
+// Polls
+let polls = [];
 
 io.on("connection", (socket) => {
-  console.log("Overlay verbunden");
-  socket.emit("updateTasks", tasks);
+  console.log("Overlay connected");
+  socket.emit("updatePolls", polls);
 });
 
-// Task-Funktionen
-function addTask(user, task) {
+// Poll functions
+function addPoll(user, question) {
   const id = Date.now();
-  tasks.push({ id, user, task, done: false });
-  io.emit("updateTasks", tasks);
+  polls.push({ id, user, question, closed: false });
+  io.emit("updatePolls", polls);
 }
 
-function markTaskDone(index) {
-  if (tasks[index] && !tasks[index].done) {
-    tasks[index].done = true;
-    io.emit("updateTasks", tasks);
-    const taskId = tasks[index].id;
+function closePoll(index) {
+  if (polls[index] && !polls[index].closed) {
+    polls[index].closed = true;
+    io.emit("updatePolls", polls);
+
+    const pollId = polls[index].id;
+    // Automatically remove poll after 60 seconds (optional)
     setTimeout(() => {
-      tasks = tasks.filter(t => t.id !== taskId);
-      io.emit("updateTasks", tasks);
+      polls = polls.filter(p => p.id !== pollId);
+      io.emit("updatePolls", polls);
     }, 60000);
     return true;
   }
   return false;
 }
 
-function clearTasks() {
-  tasks = [];
-  io.emit("updateTasks", tasks);
+function clearPolls() {
+  polls = [];
+  io.emit("updatePolls", polls);
 }
 
-// Server starten
-server.listen(3000, () => console.log("Server läuft auf http://localhost:3000"));
+server.listen(3000, () => console.log("Server running at http://localhost:3000"));
 
-// Export (falls nötig)
-module.exports = { addTask, markTaskDone, clearTasks, tasks, io };
+// Export
+module.exports = { addPoll, closePoll, clearPolls, polls, io };
