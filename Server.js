@@ -8,50 +8,30 @@ const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
 // Serve static files
-app.use(express.static(path.join(__dirname, "./Overlay/index.html")));
+app.use(express.static(path.join(__dirname, "Overlay")));
 
-// Make overlay directly accessible
-app.get("/overlay.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "./Overlay/index.html"));
+// Provide HTTP route for fetching the current poll
+app.get("/poll", (req, res) => {
+    if (!polls.length) return res.json({});
+    res.json(polls[0]); // only the first poll
 });
 
-// Polls
+// Polls array
 let polls = [];
 
 io.on("connection", (socket) => {
   console.log("Overlay connected");
   socket.emit("updatePolls", polls);
+
+  // Optional: Receive polls from the bot
+  socket.on("updatePolls", (newPolls) => {
+    polls = newPolls;
+    io.emit("updatePolls", polls);
+  });
 });
 
-// Poll functions
-function addPoll(user, question) {
-  const id = Date.now();
-  polls.push({ id, user, question, closed: false });
-  io.emit("updatePolls", polls);
-}
-
-function closePoll(index) {
-  if (polls[index] && !polls[index].closed) {
-    polls[index].closed = true;
-    io.emit("updatePolls", polls);
-
-    const pollId = polls[index].id;
-    // Automatically remove poll after 60 seconds (optional)
-    setTimeout(() => {
-      polls = polls.filter(p => p.id !== pollId);
-      io.emit("updatePolls", polls);
-    }, 60000);
-    return true;
-  }
-  return false;
-}
-
-function clearPolls() {
-  polls = [];
-  io.emit("updatePolls", polls);
-}
-
+// Start the server
 server.listen(3000, () => console.log("Server running at http://localhost:3000"));
 
-// Export
-module.exports = { addPoll, closePoll, clearPolls, polls, io };
+// Export for bot if needed
+module.exports = { io };
