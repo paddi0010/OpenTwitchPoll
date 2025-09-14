@@ -13,7 +13,7 @@ function updateVotes(updatedPoll) {
 
 function stopPoll() {
   polls = [];
-  io.emit("updatePolls", polls); // <--- Overlay leert sich
+  io.emit("updatePolls", polls);
 }
 
 
@@ -22,9 +22,7 @@ function getResults() {
 
   const tally = {};
   activePoll.options.forEach(opt => {
-    tally[opt] = Object.values(activePoll.votes)
-      .flat() // alle Votes eines Users zusammenfassen
-      .filter(v => v === opt).length;
+    tally[opt] = Object.values(activePoll.votes).flat() .filter(v => v === opt).length;
   });
 
   return { question: activePoll.question, results: tally, options: activePoll.options };
