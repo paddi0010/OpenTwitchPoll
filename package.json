@@ -4,8 +4,7 @@
   "description": "A tool for creating polls for Twitch streamers without affiliate status.",
   "main": "script.js",
   "scripts": {
-    "start-bot": "node script.js",
-    "start-server": "node server.js"
+    "start-bot": "node script.js"
   },
   "repository": {
     "type": "git",
@@ -35,5 +34,8 @@
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
     "tmi.js": "^1.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }
