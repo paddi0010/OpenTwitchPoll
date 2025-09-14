@@ -2,6 +2,8 @@ const tmi = require("tmi.js");
 const { startPoll, stopPoll, updateVotes, getCurrentPoll } = require("./Server");
 const pollHandler = require("./pollHandler")({ startPoll, stopPoll, updateVotes, getCurrentPoll });
 require("dotenv").config();
+const open = require("open");
+
 
 // Twitch Bot Setup
 const client = new tmi.Client({
