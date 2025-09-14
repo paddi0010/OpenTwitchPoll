@@ -1,7 +1,6 @@
 # OpenTwitchPoll
 
-## Disclaimer
-This project is still under active development. Bugs and incomplete features may occur.
+## This project is still under active development. Bugs and incomplete features may occur.
 
 
 Unfortunately, Twitch does not provide a way to create polls without affiliate status.  
