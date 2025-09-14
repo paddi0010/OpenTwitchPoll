@@ -1,25 +1,28 @@
-const optionsList = document.getElementById("options");
-const questionEl = document.getElementById("question");
-
-const socket = io("http://localhost:3000"); // Socket.IO-Verbindung
-
-socket.on("connect", () => console.log("Connected to server!"));
+const socket = io(); // verbindung zum Server
 
 socket.on("updatePolls", (polls) => {
-    const data = polls[0]; // wir gehen aktuell von nur 1 Poll aus
+  const questionEl = document.getElementById("question");
+  const optionsEl = document.getElementById("options");
 
-    if (!data) {
-        questionEl.textContent = "No active poll";
-        optionsList.innerHTML = "";
-        return;
-    }
+  if (!polls.length) {
+    questionEl.textContent = "No active poll";
+    optionsEl.innerHTML = "";
+    return;
+  }
 
-    questionEl.textContent = data.question;
+  const poll = polls[0];
+  questionEl.textContent = poll.question;
 
-    optionsList.innerHTML = "";
-    data.options.forEach(opt => {
-        const li = document.createElement("li");
-        li.textContent = `${opt} : ${data.votes[opt] || 0}`;
-        optionsList.appendChild(li);
-    });
+  optionsEl.innerHTML = "";
+  const voteCounts = {};
+  Object.values(poll.votes).forEach(v => {
+    if (Array.isArray(v)) v.forEach(choice => voteCounts[choice] = (voteCounts[choice] || 0) + 1);
+    else voteCounts[v] = (voteCounts[v] || 0) + 1;
+  });
+
+  poll.options.forEach(option => {
+    const li = document.createElement("li");
+    li.textContent = `${option} - ${voteCounts[option.toLowerCase()] || 0} votes`;
+    optionsEl.appendChild(li);
+  });
 });
