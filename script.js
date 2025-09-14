@@ -1,6 +1,6 @@
 const tmi = require("tmi.js");
-const pollHandler = require("./pollHandler");
 const { startPoll, stopPoll, updateVotes, getCurrentPoll } = require("./Server");
+const pollHandler = require("./pollHandler")({ startPoll, stopPoll, updateVotes, getCurrentPoll });
 require("dotenv").config();
 
 // Twitch Bot Setup
@@ -14,9 +14,6 @@ const client = new tmi.Client({
   channels: process.env.TWITCH_CHANNELS.split(",")
 });
 
-// PollHandler mit Server-Funktionen verbinden
-pollHandler.init({ startPoll, stopPoll, updateVotes, getCurrentPoll });
-
 client.on("connected", (address, port) => {
   console.log(`Connected to ${address}:${port}`);
 });
@@ -24,8 +21,6 @@ client.on("connected", (address, port) => {
 client.on("message", (channel, userstate, message, self) => {
   if (self) return;
   pollHandler.handlePollCommand(channel, userstate, message, client);
-  console.log(`Received message: ${message} from ${userstate.username}`);
-
 });
 
 
