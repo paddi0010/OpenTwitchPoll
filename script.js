@@ -4,8 +4,6 @@ const pollHandler = require("./pollHandler")({ startPoll, stopPoll, updateVotes,
 require("dotenv").config();
 const open = require("open");
 
-
-// Twitch Bot Setup
 const client = new tmi.Client({
   options: { debug: true },
   connection: { reconnect: true, secure: true },
