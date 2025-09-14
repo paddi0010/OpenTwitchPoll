@@ -7,31 +7,46 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
-// Serve static files
+// Overlay static files
 app.use(express.static(path.join(__dirname, "Overlay")));
 
-// Provide HTTP route for fetching the current poll
-app.get("/poll", (req, res) => {
-    if (!polls.length) return res.json({});
-    res.json(polls[0]); // only the first poll
-});
-
-// Polls array
+// Polls storage
 let polls = [];
 
+// API endpoint
+app.get("/poll", (req, res) => {
+  if (!polls.length) return res.json({});
+  res.json(polls[0]);
+});
+
+// Socket.IO connection
 io.on("connection", (socket) => {
   console.log("Overlay connected");
   socket.emit("updatePolls", polls);
-
-  // Optional: Receive polls from the bot
-  socket.on("updatePolls", (newPolls) => {
-    polls = newPolls;
-    io.emit("updatePolls", polls);
-  });
 });
 
-// Start the server
+// Poll functions for bot
+function startPoll(poll) {
+  polls = [poll];
+  io.emit("updatePolls", polls);
+}
+
+function stopPoll() {
+  polls = [];
+  io.emit("updatePolls", polls);
+}
+
+function updateVotes(updatedPoll) {
+  if (!polls.length) return;
+  polls[0].votes = updatedPoll.votes;
+  io.emit("updatePolls", polls);
+}
+
+function getCurrentPoll() {
+  return polls[0] || null;
+}
+
 server.listen(3000, () => console.log("Server running at http://localhost:3000"));
 
-// Export for bot if needed
-module.exports = { io };
+// Export functions for bot
+module.exports = { startPoll, stopPoll, updateVotes, getCurrentPoll };
