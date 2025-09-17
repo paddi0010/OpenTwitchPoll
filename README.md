@@ -39,3 +39,11 @@ OpenTwitchPoll is a simple tool for Twitch streamers to create and manage live p
    - On the first run, dependencies will be installed automatically  
    - After that, you will be prompted to enter your Twitch username  
 
+
+---
+
+## ⚙️ Requirements
+
+- [Node.js 18+](https://nodejs.org/)  
+- A Twitch account  
+- A registered application on the [Twitch Developer Console](https://dev.twitch.tv/console)  
