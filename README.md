@@ -7,18 +7,40 @@ OpenTwitchPoll ist ein einfaches Tool für Twitch-Streamer, um Live-Umfragen dir
 
 ---
 
-## Features
+## ✨ Features
 
-- Live-Polls direkt im Twitch-Chat
-- Einfache Start- und Voting-Kommandos (`!poll`, `!vote`)
-- Overlay-Unterstützung via Socket.IO
-- Kein Affiliate-Status nötig
-- Benutzerfreundlicher Start via `.bat` oder Node.js
+- 🎉 Live-Polls direkt im Twitch-Chat  
+- 📝 Einfache Befehle: `!poll` & `!vote`  
+- 🖼 Overlay-Unterstützung via Socket.IO  
+- 🚫 Kein Affiliate-Status nötig  
+- ⚡ Benutzerfreundlicher Start via `.bat` oder Node.js  
 
 ---
 
-## Installation
+## 📦 Installation
 
-1. Lade über die Releases die .zip und entpacke diese.
-2. öffne die `start_env` Datei und trage `CLIENT_ID` und `CLIENT_SECRET` hinter den "=" OHNE LEERZEICHEN ein, diese bekommst du auf (dev.twitch.tv), dort klickst du oben rechts auf Login with Twitch und danach auf Your Console. Klicke dann auf Deine Anwendung registrieren und gebe dieser einen Namen. Als OAUTH Redirect URLS `http://localhost:3000/callback` ein, bei der Kategorie other. Du siehst weiter unten die Client-ID und daunter den Button Neues Geheimnis, diesen klickst du an und danach auf speichern. Füge nun die die Client-ID und den Client Secret in die `start_env` datei ein.
-3. Klicke auf die `start.bat` und gebe deinen Namen nach der Installation der abhängigkeiten ein.
+1. Lade die neueste **.zip** über die [Releases](../../releases) herunter und entpacke sie.  
+
+2. Öffne die Datei **`start_env`** und trage deine **`CLIENT_ID`** und **`CLIENT_SECRET`** (ohne Leerzeichen) ein.  
+   Diese erhältst du auf [Twitch Developer Console](https://dev.twitch.tv/console):  
+   - Melde dich mit deinem Twitch-Account an  
+   - Klicke auf **„Deine Anwendungen registrieren“**  
+   - Vergib einen Namen  
+   - Trage bei **OAuth Redirect URLs** folgendes ein:  
+     ```
+     http://localhost:3000/callback
+     ```  
+   - Wähle als Kategorie **Other**  
+   - Nach dem Speichern findest du die **Client-ID**  
+   - Erstelle darunter ein **Neues Geheimnis** → das ist dein **Client-Secret**  
+   - Beide Werte kopierst du in deine `start_env` Datei  
+
+3. Starte den Bot mit **`start.bat`**  
+   - Beim ersten Start werden automatisch die Abhängigkeiten installiert  
+   - Danach wirst du aufgefordert, deinen Twitch-Namen einzugeben  
+
+---
+
+## 🚀 Nutzung
+
+- **Poll starten:**
