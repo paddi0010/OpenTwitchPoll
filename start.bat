@@ -1,6 +1,6 @@
 @echo off
 echo ===============================
-echo        OpenTwitchPoll 
+echo  Starte OpenTwitchPoll Bot
 echo ===============================
 
 REM Prüfen, ob node_modules vorhanden ist
