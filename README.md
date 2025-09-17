@@ -1,21 +1,26 @@
 # OpenTwitchPoll
 
-OpenTwitchPoll ist ein einfacher Twitch-Chat-Poll-Bot für nicht-affiliate Streamer. Mit diesem Tool kannst du direkt in deinem Chat Umfragen starten, ohne komplexe Einrichtung.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
+[![Node.js Version](https://img.shields.io/badge/Node.js-%3E=18-brightgreen)](https://nodejs.org/)
 
-## This project is still under active development. Bugs and incomplete features may occur.
+OpenTwitchPoll ist ein einfaches Tool für Twitch-Streamer, um Live-Umfragen direkt im Chat zu erstellen und auszuwerten – auch für Non-Affiliate-Streamer.
 
-
-Unfortunately, Twitch does not provide a way to create polls without affiliate status.  
-That’s why I built this tool: it enables non-affiliates to run polls through chat and even includes an overlay for the stream! 🙂
-
-
+---
 
 ## Features
 
-Starte Umfragen direkt über den Chat (!poll start <Frage>? <Option1>, <Option2>, ...).
+- Live-Polls direkt im Twitch-Chat
+- Einfache Start- und Voting-Kommandos (`!poll`, `!vote`)
+- Overlay-Unterstützung via Socket.IO
+- Kein Affiliate-Status nötig
+- Benutzerfreundlicher Start via `.bat` oder Node.js
 
-Zuschauer können über !vote <Option> abstimmen.
+---
 
-Ergebnisse werden in Echtzeit gespeichert.
+## Installation
 
-Einfacher Setup-Prozess: Keine manuellen .env-Dateien nötig.
+1. Repository klonen:
+
+```bash
+git clone https://github.com/paddi0010/OpenTwitchPoll.git
+cd OpenTwitchPoll
