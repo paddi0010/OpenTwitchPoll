@@ -5,6 +5,8 @@
 
 OpenTwitchPoll is a simple tool for Twitch streamers to create and manage live polls directly in chat – even for non-affiliate streamers.
 
+!This tool is under development therefore may contain bugs or unfinished features!
+
 ---
 
 ## ✨ Features
