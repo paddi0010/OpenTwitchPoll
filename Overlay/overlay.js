@@ -1,28 +1,25 @@
-const socket = io(); // verbindung zum Server
+const socket = io();
+const questionEl = document.getElementById("poll-question");
+const optionsEl = document.getElementById("poll-options");
 
 socket.on("updatePolls", (polls) => {
-  const questionEl = document.getElementById("question");
-  const optionsEl = document.getElementById("options");
-
   if (!polls.length) {
-    questionEl.textContent = "No active poll";
+    questionEl.textContent = "Waiting for poll...";
     optionsEl.innerHTML = "";
     return;
   }
 
   const poll = polls[0];
   questionEl.textContent = poll.question;
-
   optionsEl.innerHTML = "";
-  const voteCounts = {};
-  Object.values(poll.votes).forEach(v => {
-    if (Array.isArray(v)) v.forEach(choice => voteCounts[choice] = (voteCounts[choice] || 0) + 1);
-    else voteCounts[v] = (voteCounts[v] || 0) + 1;
-  });
 
   poll.options.forEach(option => {
+    const votes = Object.values(poll.votes)
+      .flat()
+      .filter(v => v.toLowerCase() === option.toLowerCase()).length;
+
     const li = document.createElement("li");
-    li.textContent = `${option} - ${voteCounts[option.toLowerCase()] || 0} votes`;
+    li.textContent = `${option}: ${votes} vote${votes !== 1 ? "s" : ""}`;
     optionsEl.appendChild(li);
   });
 });

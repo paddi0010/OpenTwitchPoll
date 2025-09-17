@@ -1,18 +1,29 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: transparent;
+  background: rgba(0,0,0,0); 
+}
+
+.overlay {
   color: white;
-}
-
-#overlay {
-  background: rgba(0, 0, 0, 0.5);
+  text-align: center;
   padding: 20px;
-  border-radius: 10px;
-  width: 400px;
 }
 
-#options li {
+#poll-question {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+#poll-options {
+  list-style: none;
+  padding: 0;
+}
+
+#poll-options li {
+  font-size: 28px;
   margin: 10px 0;
-  font-size: 20px;
+  background: rgba(255,255,255,0.1);
+  padding: 10px;
+  border-radius: 8px;
 }

@@ -7,25 +7,21 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
-// Overlay static files
 app.use(express.static(path.join(__dirname, "Overlay")));
 
-// Polls storage
+
 let polls = [];
 
-// API endpoint
 app.get("/poll", (req, res) => {
   if (!polls.length) return res.json({});
   res.json(polls[0]);
 });
 
-// Socket.IO connection
 io.on("connection", (socket) => {
   console.log("Overlay connected");
   socket.emit("updatePolls", polls);
 });
 
-// Poll functions for bot
 function startPoll(poll) {
   polls = [poll];
   io.emit("updatePolls", polls);
@@ -46,7 +42,17 @@ function getCurrentPoll() {
   return polls[0] || null;
 }
 
-server.listen(3000, () => console.log("Server running at http://localhost:3000"));
 
-// Export functions for bot
+const PORT = 3002;
+server.listen(PORT)
+  .on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`Port ${PORT} ist bereits belegt!`);
+    } else {
+      console.error(err);
+    }
+  })
+  .on('listening', () => console.log(`Overlay server running at http://localhost:${PORT}`));
+
+
 module.exports = { startPoll, stopPoll, updateVotes, getCurrentPoll };

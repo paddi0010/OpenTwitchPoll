@@ -2,13 +2,13 @@ let activePoll = null;
 
 function startPoll(poll) {
   polls = [poll];
-  io.emit("updatePolls", polls); // <--- sendet an Overlay
+  io.emit("updatePolls", polls); 
 }
 
 function updateVotes(updatedPoll) {
   if (!polls.length) return;
   polls[0].votes = updatedPoll.votes;
-  io.emit("updatePolls", polls); // <--- sendet erneut
+  io.emit("updatePolls", polls); 
 }
 
 function stopPoll() {
