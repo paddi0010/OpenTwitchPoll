@@ -10,7 +10,7 @@ OpenTwitchPoll is a simple tool for Twitch streamers to create and manage live p
 ## ✨ Features
 
 - 🎉 Live polls directly in the Twitch chat  
-- 📝 Easy commands: `!poll` & `!vote`  
+- 📝 Easy commands: `!poll start <poll>` & `!vote <vote>`  
 - 🖼 Overlay support via Socket.IO  
 - 🚫 No affiliate status required  
 - ⚡ Startup via `.bat` or Node.js  
