@@ -1,13 +1,16 @@
 // start.js
 const express = require("express");
-const open = require("open"); // <--- jetzt einfach require
+const open = require("open");
 const readline = require("readline");
 const fetch = require("node-fetch");
 const fs = require("fs");
 const { spawn } = require("child_process");
 
 
-require('dotenv').config();
+require('dotenv').config( {path: './env_start'} );
+console.log('CLIENT_ID:', process.env.TWITCH_CLIENT_ID);
+console.log('CLIENT_SECRET:', process.env.TWITCH_CLIENT_SECRET);
+
 
 const CLIENT_ID = process.env.TWITCH_CLIENT_ID;
 const CLIENT_SECRET = process.env.TWITCH_CLIENT_SECRET;
@@ -61,7 +64,7 @@ rl.question("Twitch Username: ", (username) => {
       rl.close();
 
       // Bot starten
-      const bot = spawn("node", ["script.js"], { stdio: "inherit" });
+      const bot = spawn("node", ["./script.js"], { stdio: "inherit" });
       bot.on("close", (code) => console.log(`Bot beendet mit Code ${code}`));
 
     } catch (err) {

@@ -3,7 +3,7 @@ const open = require("open");
 const readline = require("readline");
 const fetch = require("node-fetch");
 const fs = require("fs");
-require("dotenv").config();
+require('dotenv').config();
 
 const rl = readline.createInterface({
   input: process.stdin,
