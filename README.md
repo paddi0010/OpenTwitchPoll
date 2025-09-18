@@ -28,7 +28,7 @@ OpenTwitchPoll ist ein einfaches Tool für Twitch-Streamer, um Live-Umfragen dir
    - Vergib einen Namen  
    - Trage bei **OAuth Redirect URLs** folgendes ein:  
      ```
-     http://localhost:3000/callback
+     http://localhost:3002/callback
      ```  
    - Wähle als Kategorie **Other**  
    - Nach dem Speichern findest du die **Client-ID**  
@@ -44,3 +44,8 @@ OpenTwitchPoll ist ein einfaches Tool für Twitch-Streamer, um Live-Umfragen dir
 ## 🚀 Nutzung
 
 - **Poll starten:**
+
+
+## Port using
+- Port **3000** used for Poll Overlay Server
+- Port **3002** used for Authentication
