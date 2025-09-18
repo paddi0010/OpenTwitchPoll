@@ -1,8 +1,20 @@
 const tmi = require("tmi.js");
-const { startPoll, stopPoll, updateVotes, getCurrentPoll } = require("./Server");
-const pollHandler = require("./pollHandler")({ startPoll, stopPoll, updateVotes, getCurrentPoll });
 require("dotenv").config();
-const open = require("open");
+const { io } = require("socket.io-client");
+const pollCommand = require("./commands/pollCommand.js");
+const voteCommand = require("./commands/voteCommand.js");
+const closeCommand = require("./commands/closePollCommand.js");
+const clearCommand = require("./commands/clearPollCommand.js");
+const listCommand = require("./commands/listPollsCommand.js");
+const helpCommand = require("./commands/helpCommand.js");
+
+let currentPoll = null;
+
+const overlaySocket = io("http://localhost:4000");
+
+function sendUpdate() {
+  overlaySocket.emit("updatePolls", currentPoll ? [currentPoll] : []);
+}
 
 const client = new tmi.Client({
   options: { debug: true },
@@ -11,17 +23,41 @@ const client = new tmi.Client({
     username: process.env.TWITCH_USERNAME,
     password: process.env.TWITCH_OAUTH_TOKEN
   },
-  channels: process.env.TWITCH_CHANNELS.split(",")
+  channels: [process.env.TWITCH_CHANNELS]
 });
 
-client.on("connected", (address, port) => {
-  console.log(`Connected to ${address}:${port}`);
+client.on("connected", () => {
+  console.log("Bot gestartet");
 });
 
-client.on("message", (channel, userstate, message, self) => {
+client.on("message", (channel, tags, message, self) => {
   if (self) return;
-  pollHandler.handlePollCommand(channel, userstate, message, client);
-});
 
+  const [cmd, ...args] = message.trim().split(" ");
+
+  switch (cmd.toLowerCase()) {
+    case "!poll":
+      currentPoll = pollCommand.execute(client, channel, tags, args, currentPoll).currentPoll;
+      break;
+    case "!vote":
+      currentPoll = voteCommand.execute(client, channel, tags, args, currentPoll).currentPoll;
+      sendUpdate();
+      break;
+    case "!close":
+      currentPoll = closeCommand.execute(client, channel, tags, args, currentPoll).currentPoll;
+      sendUpdate();
+      break;
+    case "!clear":
+      currentPoll = clearCommand.execute(client, channel, tags, args, currentPoll).currentPoll;
+      sendUpdate();
+      break;
+    case "!list":
+      currentPoll = listCommand.execute(client, channel, tags, args, currentPoll).currentPoll;
+      break;
+    case "!help":
+      currentPoll = helpCommand.execute(client, channel, tags, args, currentPoll).currentPoll;
+      break;
+  }
+});
 
 client.connect().catch(console.error);

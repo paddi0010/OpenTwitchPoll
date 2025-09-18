@@ -1,28 +1,28 @@
-const socket = io(); // verbindung zum Server
+const socket = io("http://localhost:4000");
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+
+socket.on("connect", () => {
+  console.log("Mit Overlay Server verbunden");
+});
 
 socket.on("updatePolls", (polls) => {
-  const questionEl = document.getElementById("question");
-  const optionsEl = document.getElementById("options");
+  const poll = polls[0];
 
-  if (!polls.length) {
-    questionEl.textContent = "No active poll";
+  if (!poll) {
+    questionEl.textContent = "Keine Umfrage aktiv";
     optionsEl.innerHTML = "";
     return;
   }
 
-  const poll = polls[0];
   questionEl.textContent = poll.question;
-
   optionsEl.innerHTML = "";
-  const voteCounts = {};
-  Object.values(poll.votes).forEach(v => {
-    if (Array.isArray(v)) v.forEach(choice => voteCounts[choice] = (voteCounts[choice] || 0) + 1);
-    else voteCounts[v] = (voteCounts[v] || 0) + 1;
-  });
 
-  poll.options.forEach(option => {
+  for (const option of poll.options) {
     const li = document.createElement("li");
-    li.textContent = `${option} - ${voteCounts[option.toLowerCase()] || 0} votes`;
+    const votes = poll.votes[option] || 0;
+    li.textContent = `${option} - ${votes} Stimmen`;
     optionsEl.appendChild(li);
-  });
+  }
 });

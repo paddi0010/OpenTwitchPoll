@@ -1,5 +1,6 @@
-# OpenTwitchPoll
+OpenTwitchPoll is a simple tool for Twitch streamers to create and manage live polls directly in chat – even for non-affiliate streamers.
 
+=======
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
 [![Node.js Version](https://img.shields.io/badge/Node.js-%3E=18-brightgreen)](https://nodejs.org/)
 
@@ -38,7 +39,7 @@ OpenTwitchPoll is a simple tool for Twitch streamers to create and manage live p
    - Give your application a name  
    - Enter the following under **OAuth Redirect URLs**:  
      ```
-     http://localhost:3000/callback
+     http://localhost:3002/callback
      ```  
    - Choose **Other** as the category  
    - After saving, you will see your **Client ID**  
@@ -50,4 +51,7 @@ OpenTwitchPoll is a simple tool for Twitch streamers to create and manage live p
    - After that, you will be prompted to enter your Twitch username  
 
 
- 
+## Port using
+- Port **3001** used for Poll Overlay Server
+- Port **3002** used for Authentication
+=======

@@ -34,7 +34,7 @@ module.exports = (serverFuncs) => {
 
       serverFuncs.startPoll(newPoll);
       client.say(channel, `🗳️ New poll started: ${question} | Options: ${options.join(", ")}`);
-      return; // fertig mit Poll start
+      return; 
     }
 
     // --- Vote Command ---
