@@ -1,4 +1,4 @@
-const { startPoll } = require("../Server.js");
+const { updatePoll } = require("../Server.js");
 
 module.exports = {
   name: "poll",
@@ -14,7 +14,7 @@ module.exports = {
 
     const newPoll = { question, options, votes: {} };
 
-    startPoll(newPoll); // ← Wichtig, Overlay bekommt das Event
+    updatePoll(newPoll); // ← Overlay bekommt jetzt das Event
     client.say(channel, `🗳️ New poll started: ${question} | Options: ${options.join(", ")}`);
 
     return { currentPoll: newPoll };
