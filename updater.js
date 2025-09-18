@@ -1,44 +1,56 @@
+const fetch = require("node-fetch");
 const { execSync } = require("child_process");
-const https = require("https");
-const pkg = require("./package.json");
+const readline = require("readline");
 
-const REPO = "paddi0010/OpenTwitchPoll"; // dein GitHub Repo
-const LOCAL_VERSION = pkg.version;
+const repo = "paddi0010/OpenTwitchPoll"; // dein Repo
 
-function getLatestRelease(callback) {
-  https.get(`https://api.github.com/repos/${REPO}/releases/latest`, {
-    headers: { "User-Agent": "node.js" }
-  }, (res) => {
-    let data = "";
-    res.on("data", chunk => data += chunk);
-    res.on("end", () => {
-      try {
-        const release = JSON.parse(data);
-        const latest = release.tag_name.replace(/^v/, "");
-        callback(latest);
-      } catch (err) {
-        console.error("❌ Fehler beim Lesen der Release-Daten:", err);
-      }
-    });
-  }).on("error", (err) => {
-    console.error("❌ API-Fehler:", err);
+function askQuestion(query) {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
   });
+
+  return new Promise(resolve => rl.question(query, ans => {
+    rl.close();
+    resolve(ans.trim());
+  }));
 }
 
-getLatestRelease((latest) => {
-  if (!latest) return;
+(async () => {
+  try {
+    // GitHub API nach letztem Release abfragen
+    const resp = await fetch(`https://api.github.com/repos/${repo}/releases/latest`);
+    const data = await resp.json();
 
-  if (latest !== LOCAL_VERSION) {
-    console.log(`🚀 Update verfügbar: ${latest} (aktuell: ${LOCAL_VERSION})`);
-    try {
-      execSync("git fetch --all", { stdio: "inherit" });
-      execSync("git pull --rebase", { stdio: "inherit" }); // behält lokale Änderungen
-      execSync("npm install", { stdio: "inherit" });
-      console.log("✅ Update erfolgreich installiert! Lokale Änderungen wurden beibehalten.");
-    } catch (err) {
-      console.error("❌ Update fehlgeschlagen:", err);
+    if (!data.tag_name) {
+      console.log("⚠️ Konnte keine Release-Infos abrufen.");
+      return;
     }
-  } else {
-    console.log("✅ Projekt ist aktuell.");
+
+    const remoteVersion = data.tag_name.replace(/^v/, "");
+    const localPkg = require("./package.json");
+    const localVersion = localPkg.version;
+
+    console.log(`📦 Lokale Version: ${localVersion}`);
+    console.log(`🌐 Neueste Version: ${remoteVersion}`);
+
+    if (localVersion !== remoteVersion) {
+      const answer = await askQuestion("🚀 Update verfügbar! Soll geupdatet werden? (y/n) ");
+
+      if (answer.toLowerCase() === "y") {
+        console.log("⬇️ Update wird ausgeführt...");
+        execSync("git fetch --all", { stdio: "inherit" });
+        execSync("git reset --hard origin/main", { stdio: "inherit" });
+        execSync("npm install", { stdio: "inherit" });
+        console.log("✅ Update abgeschlossen!");
+      } else {
+        console.log("⏩ Update übersprungen.");
+      }
+    } else {
+      console.log("ℹ️ Kein Update verfügbar. Du bist auf dem neuesten Stand ✅");
+    }
+
+  } catch (err) {
+    console.error("❌ Fehler beim Updater:", err.message);
   }
-});
+})();
