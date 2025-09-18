@@ -8,7 +8,7 @@ socket.on("connect", () => {
 });
 
 socket.on("updatePolls", (polls) => {
-  const poll = polls[0]; // nur die aktuelle Umfrage anzeigen
+  const poll = polls[0];
 
   if (!poll) {
     questionEl.textContent = "Keine Umfrage aktiv";
