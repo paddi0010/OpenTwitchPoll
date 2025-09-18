@@ -53,4 +53,3 @@ OpenTwitchPoll is a simple tool for Twitch streamers to create and manage live p
 ## Port using
 - Port **3001** used for Authentication
 - Port **4000** used for Overlay
-=======
