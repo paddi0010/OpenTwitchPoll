@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 const { execSync } = require("child_process");
 const readline = require("readline");
 
-const repo = "paddi0010/OpenTwitchPoll"; // dein Repo
+const repo = "paddi0010/OpenTwitchPoll";
 
 function askQuestion(query) {
   const rl = readline.createInterface({
@@ -18,7 +18,7 @@ function askQuestion(query) {
 
 (async () => {
   try {
-    // GitHub API nach letztem Release abfragen
+
     const resp = await fetch(`https://api.github.com/repos/${repo}/releases/latest`);
     const data = await resp.json();
 
