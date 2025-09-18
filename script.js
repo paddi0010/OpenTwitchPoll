@@ -1,4 +1,3 @@
-// script.js
 const tmi = require("tmi.js");
 require("dotenv").config();
 const { io } = require("socket.io-client");
@@ -11,7 +10,6 @@ const helpCommand = require("./commands/helpCommand.js");
 
 let currentPoll = null;
 
-// Socket.IO-Client nur einmal verbinden
 const overlaySocket = io("http://localhost:4000");
 
 function sendUpdate() {
