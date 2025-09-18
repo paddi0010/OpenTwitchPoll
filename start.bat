@@ -3,6 +3,10 @@ echo ===============================
 echo  Starte OpenTwitchPoll Bot
 echo ===============================
 
+echo Checking for updates...
+node updater.js
+
+
 REM Prüfen, ob node_modules vorhanden ist
 IF NOT EXIST node_modules (
   echo Installiere Abhängigkeiten...
@@ -12,11 +16,11 @@ IF NOT EXIST node_modules (
     pause
     exit /b
   )
-  echo Installation abgeschlossen!
+  echo Installation complete!
 )
 
-REM Bot starten
-echo Starte Bot...
+REM starting Bot
+echo starting Bot...
 node auth.js
 
 echo.
