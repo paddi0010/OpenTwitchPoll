@@ -4,7 +4,7 @@
   "description": "A tool for creating polls for Twitch streamers without affiliate status.",
   "main": "script.js",
   "scripts": {
-    "start-bot": "node script.js && updater.js"
+    "start": "node ."
   },
   "repository": {
     "type": "git",
