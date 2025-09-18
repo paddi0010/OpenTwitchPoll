@@ -17,7 +17,7 @@ IF NOT EXIST node_modules (
 
 REM Bot starten
 echo Starte Bot...
-node script.js
+node auth.js
 
 echo.
 echo Bot wurde beendet.
