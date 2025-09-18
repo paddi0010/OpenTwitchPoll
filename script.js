@@ -1,8 +1,7 @@
+// script.js
 const tmi = require("tmi.js");
-const chalk = require("chalk");
 require("dotenv").config();
-const { execSync } = require("child_process");
-
+const { io } = require("socket.io-client");
 const pollCommand = require("./commands/pollCommand.js");
 const voteCommand = require("./commands/voteCommand.js");
 const closeCommand = require("./commands/closePollCommand.js");
@@ -12,11 +11,11 @@ const helpCommand = require("./commands/helpCommand.js");
 
 let currentPoll = null;
 
-try {
-  console.log("🔍 Prüfe auf Updates...");
-  execSync("node updater.js", { stdio: "inherit" });
-} catch (err) {
-  console.error("⚠️ Updater konnte nicht ausgeführt werden:", err.message);
+// Socket.IO-Client nur einmal verbinden
+const overlaySocket = io("http://localhost:4000");
+
+function sendUpdate() {
+  overlaySocket.emit("updatePolls", currentPoll ? [currentPoll] : []);
 }
 
 const client = new tmi.Client({
@@ -30,7 +29,7 @@ const client = new tmi.Client({
 });
 
 client.on("connected", () => {
-  console.log(chalk.green(`[${new Date().toISOString()}] Bot started.`));
+  console.log("Bot gestartet");
 });
 
 client.on("message", (channel, tags, message, self) => {
@@ -44,12 +43,15 @@ client.on("message", (channel, tags, message, self) => {
       break;
     case "!vote":
       currentPoll = voteCommand.execute(client, channel, tags, args, currentPoll).currentPoll;
+      sendUpdate();
       break;
     case "!close":
       currentPoll = closeCommand.execute(client, channel, tags, args, currentPoll).currentPoll;
+      sendUpdate();
       break;
     case "!clear":
       currentPoll = clearCommand.execute(client, channel, tags, args, currentPoll).currentPoll;
+      sendUpdate();
       break;
     case "!list":
       currentPoll = listCommand.execute(client, channel, tags, args, currentPoll).currentPoll;
