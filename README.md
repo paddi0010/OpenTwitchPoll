@@ -33,7 +33,7 @@ OpenTwitchPoll is a simple tool for Twitch streamers to create and manage live p
    - Give your application a name  
    - Enter the following under **OAuth Redirect URLs**:  
      ```
-     http://localhost:3000/callback
+     http://localhost:3002/callback
      ```  
    - Choose **Other** as the category  
    - After saving, you will see your **Client ID**  
