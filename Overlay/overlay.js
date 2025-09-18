@@ -9,20 +9,25 @@ socket.on("connect", () => {
 
 socket.on("updatePolls", (polls) => {
   const poll = polls[0];
-
   if (!poll) {
     questionEl.textContent = "Keine Umfrage aktiv";
     optionsEl.innerHTML = "";
     return;
   }
 
-  questionEl.textContent = poll.question;
-  optionsEl.innerHTML = "";
+  const counts = new Array(poll.options.length).fill(0);
+  Object.values(poll.votes || {}).forEach(vote => {
+    counts[vote]++;
+  });
 
-  for (const option of poll.options) {
+  console.log("Poll:", poll.question, counts);
+
+  questionEl.textContent = poll.question;
+
+  optionsEl.innerHTML = "";
+  poll.options.forEach((option, i) => {
     const li = document.createElement("li");
-    const votes = poll.votes[option] || 0;
-    li.textContent = `${option} - ${votes} Stimmen`;
+    li.textContent = `${option} - ${counts[i]} Stimmen`;
     optionsEl.appendChild(li);
-  }
+  });
 });

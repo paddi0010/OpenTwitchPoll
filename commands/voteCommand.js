@@ -1,20 +1,31 @@
+const { updatePoll } = require("../Server.js");
+
 module.exports = {
   name: "vote",
-  description: "Vote in the current poll",
   execute(client, channel, tags, args, currentPoll) {
-    if (!currentPoll || currentPoll.closed) {
-      client.say(channel, "⚠️ No poll is currently running.");
+    if (!currentPoll) {
+      client.say(channel, "❌ No active poll right now.");
       return { currentPoll };
     }
 
-    const vote = args[0]?.toLowerCase();
-    if (!vote || !currentPoll.options.includes(vote)) {
-      client.say(channel, `⚠️ Invalid vote. Options: ${currentPoll.options.join(", ")}`);
+    const choice = parseInt(args[0], 10) - 1;
+    if (isNaN(choice) || choice < 0 || choice >= currentPoll.options.length) {
+      client.say(channel, "❌ Invalid vote. Use the number of an option.");
       return { currentPoll };
     }
 
-    currentPoll.votes[tags.username] = vote;
-    client.say(channel, `✅ @${tags.username} voted for "${vote}"`);
+    // Votes as a Map: userId -> choice
+    if (!currentPoll.votes) currentPoll.votes = {};
+    
+    currentPoll.votes[tags["user-id"]] = choice;
+
+    client.say(
+      channel,
+      `✅ ${tags["display-name"]} voted for "${currentPoll.options[choice]}"`
+    );
+
+    updatePoll(currentPoll);
+
     return { currentPoll };
   }
 };
