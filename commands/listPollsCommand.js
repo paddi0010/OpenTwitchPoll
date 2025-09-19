@@ -7,11 +7,15 @@ module.exports = {
       return { currentPoll };
     }
 
-    const voteCounts = {};
-    for (const opt of currentPoll.options) voteCounts[opt] = 0;
-    for (const vote of Object.values(currentPoll.votes)) voteCounts[vote]++;
+    const counts = new Array(currentPoll.options.length).fill(0);
+    Object.values(currentPoll.votes || {}).forEach(voteIndex => {
+      counts[voteIndex]++;
+    });
 
-    const results = currentPoll.options.map(opt => `${opt}: ${voteCounts[opt]}`).join(" | ");
+    const results = currentPoll.options
+      .map((opt, i) => `${opt}: ${counts[i]}`)
+      .join(" | ");
+
     client.say(channel, `📋 Current poll: ${currentPoll.question} | ${results}`);
     return { currentPoll };
   }

@@ -1,30 +1,24 @@
+const { updatePoll } = require("../Server");
+
 module.exports = {
   name: "close",
-  description: "Close the current poll",
   execute(client, channel, tags, args, currentPoll) {
-    if (!currentPoll) {
-      client.say(channel, "⚠️ No poll to close.");
-      return { currentPoll };
-    }
-
-    if (currentPoll.closed) {
-      client.say(channel, "⚠️ The poll is already closed.");
+    if (!currentPoll && !currentPoll.closed) {
       return { currentPoll };
     }
 
     currentPoll.closed = true;
 
-    // Ergebnis zählen
-    const results = {};
-    for (const vote of Object.values(currentPoll.votes)) {
-      results[vote] = (results[vote] || 0) + 1;
-    }
+    const counts = new Array(currentPoll.options.length).fill(0);
+    Object.values(currentPoll.votes || {}).forEach(vote => counts[vote]++);
 
-    const resultString = Object.entries(results)
-      .map(([opt, count]) => `${opt}: ${count}`)
-      .join(" | ");
+    const results = currentPoll.options.map((opt, i) => `${opt}: ${counts[i]}`).join(" | ");
 
-    client.say(channel, `📊 Poll closed! Results: ${resultString}`);
+    client.say(channel, `📊 Poll closed: ${currentPoll.question} | ${results}`);
+
+    updatePoll(currentPoll);
+    currentPoll = null;
+
     return { currentPoll };
   }
 };

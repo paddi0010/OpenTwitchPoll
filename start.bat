@@ -12,11 +12,11 @@ IF NOT EXIST node_modules (
     pause
     exit /b
   )
-  echo Installation abgeschlossen!
+  echo Installation complete!
 )
 
-REM Bot starten
-echo Starte Bot...
+REM starting Bot
+echo starting Bot...
 node auth.js
 
 echo.
