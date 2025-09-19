@@ -1,7 +1,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
-               [![Node.js Version](https://img.shields.io/badge/Node.js-%3E=18-brightgreen)](https://nodejs.org/)
+[![Node.js Version](https://img.shields.io/badge/Node.js-%3E=18-brightgreen)](https://nodejs.org/)
 
-OpenTwitchPoll is a simple tool for Twitch streamers to create and manage live polls directly in chat – even for non-affiliate streamers.
+OpenTwitchPoll is a simple tool for Twitch streamers to create and manage live polls directly in chat. Even for non-affiliate streamers.
 
 This tool is under development therefore may contain bugs or unfinished features!
 
@@ -9,11 +9,23 @@ This tool is under development therefore may contain bugs or unfinished features
 
 ## ✨ Features
 
-- 🎉 Live polls directly in the Twitch chat  
-- 📝 Easy commands: `!poll start <poll>` & `!vote <vote>`  
+- 🎉 Live polls directly in the Twitch chat   
 - 🖼 Overlay support via Socket.IO  
 - 🚫 No affiliate status required  
 - ⚡ Startup via `.bat` or Node.js  
+
+---
+
+## 📖 Commands
+
+| Command                     | Description                               | Example                                |
+|-----------------------------|-------------------------------------------|----------------------------------------|
+| `!poll <question>? <opts>`  |  Start a new poll with options            | `!poll Best game? Minecraft, Terraria` |
+| `!vote <number>`            |  Cast a vote for one of the options        | `!vote 1` (votes for first option)     |
+| `!poll list`                |  List the current poll and vote counts     | `!poll list`                           |
+| `!poll close`               |  Close the active poll and show results    | `!poll close`                          |
+| `!poll clear` *(unfinished)*|  Clear the poll and reset the overlay      | `!poll clear`                          |
+| `!poll help` *(unfinished)* |  Show all available commands               | `!poll help`                           |
 
 ---
 
@@ -47,8 +59,9 @@ This tool is under development therefore may contain bugs or unfinished features
    - On the first run, dependencies will be installed automatically  
    - After that, you will be prompted to enter your Twitch username  
 
+---
 
-## Port using
-- Port **3001** used for Authentication
+## 🌐 Port Usage
 
-- Port **4000** used for Poll Overlay Server
+- Port **3001** → Authentication  
+- Port **4000** → Poll Overlay Server  
