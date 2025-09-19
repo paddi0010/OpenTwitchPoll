@@ -37,31 +37,37 @@ client.on("message", (channel, tags, message, self) => {
 
   switch (cmd.toLowerCase()) {
     case "!poll":
-  if (args.length === 0) {
-    currentPoll = pollCommand.execute(client, channel, tags, args, currentPoll).currentPoll;
-    sendUpdate();
-  } else {
-    const subcmd = args[0].toLowerCase();
-
-    switch (subcmd) {
-      case "list":
-        currentPoll = listCommand.execute(client, channel, tags, args.slice(1), currentPoll).currentPoll;
-        break;
-      case "close":
-        if (!currentPoll) {
-          client.say(channel, "⚠️ No poll is currently running.");
-        } else {
-          currentPoll = closeCommand.execute(client, channel, tags, args.slice(1), currentPoll).currentPoll;
-          sendUpdate();
-        }
-        break;
-      default:
+      if (args.length === 0) {
         currentPoll = pollCommand.execute(client, channel, tags, args, currentPoll).currentPoll;
         sendUpdate();
-    }
-  }
-  break;
+      } else {
+        const subcmd = args[0].toLowerCase();
 
+        switch (subcmd) {
+          case "list":
+            currentPoll = listCommand.execute(client, channel, tags, args.slice(1), currentPoll).currentPoll;
+            break;
+
+          case "close":
+            if (!currentPoll) {
+              client.say(channel, "⚠️ No poll is currently running.");
+            } else {
+              currentPoll = closeCommand.execute(client, channel, tags, args.slice(1), currentPoll).currentPoll;
+              sendUpdate();
+            }
+            break;
+
+          case "clear":
+            currentPoll = clearCommand.execute(client, channel, tags, args.slice(1), currentPoll).currentPoll;
+            sendUpdate();
+            break;
+
+          default:
+            currentPoll = pollCommand.execute(client, channel, tags, args, currentPoll).currentPoll;
+            sendUpdate();
+        }
+      }
+      break;
 
     case "!vote":
       currentPoll = voteCommand.execute(client, channel, tags, args, currentPoll).currentPoll;
@@ -69,6 +75,5 @@ client.on("message", (channel, tags, message, self) => {
       break;
   }
 });
-
 
 client.connect().catch(console.error);
