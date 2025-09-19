@@ -9,23 +9,11 @@ This tool is under development therefore may contain bugs or unfinished features
 
 ## ✨ Features
 
-- 🎉 Live polls directly in the Twitch chat   
+- 🎉 Live polls directly in the Twitch chat
+- Commands are available [here](https://github.com/paddi0010/OpenTwitchPoll/wiki/Commands)
 - 🖼 Overlay support via Socket.IO  
 - 🚫 No affiliate status required  
 - ⚡ Startup via `.bat` or Node.js  
-
----
-
-## 📖 Commands
-
-| Command                     | Description                               | Example                                |
-|-----------------------------|-------------------------------------------|----------------------------------------|
-| `!poll <question>? <opts>`  |  Start a new poll with options            | `!poll Best game? Minecraft, Terraria` |
-| `!vote <number>`            |  Cast a vote for one of the options        | `!vote 1` (votes for first option)     |
-| `!poll list`                |  List the current poll and vote counts     | `!poll list`                           |
-| `!poll close`               |  Close the active poll and show results    | `!poll close`                          |
-| `!poll clear` *(unfinished)*|  Clear the poll and reset the overlay      | `!poll clear`                          |
-| `!poll help` *(unfinished)* |  Show all available commands               | `!poll help`                           |
 
 ---
 
