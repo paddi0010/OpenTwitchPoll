@@ -1,3 +1,5 @@
+const { updatePoll } = require("../Server.js");
+
 module.exports = {
   name: "poll",
   description: "Start a new poll",
@@ -30,6 +32,8 @@ module.exports = {
       votes: {},
       closed: false
     };
+
+    updatePoll(currentPoll);
 
     client.say(channel, `🗳️ New poll started: ${question} | Options: ${options.join(", ")}`);
     return { currentPoll };
