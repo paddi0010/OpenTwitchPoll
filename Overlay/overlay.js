@@ -1,12 +1,10 @@
-// overlay.js
-const socket = io("http://localhost:4000"); // Server-Adresse prüfen
+const socket = io("http://localhost:4000");
 
 const questionEl = document.getElementById("question");
 const optionsEl = document.getElementById("options");
+const timerEl = document.getElementById("timer");
 
-socket.on("connect", () => {
-  console.log("Mit Overlay Server verbunden");
-});
+socket.on("connect", () => console.log("Mit Overlay Server verbunden"));
 
 socket.on("updatePolls", (polls) => {
   const poll = polls[0];
@@ -14,19 +12,19 @@ socket.on("updatePolls", (polls) => {
   if (!poll) {
     questionEl.textContent = "";
     optionsEl.innerHTML = "";
+    if (timerEl) timerEl.textContent = "";
     return;
   }
-
-  // Stimmen zählen
-  const counts = new Array(poll.options.length).fill(0);
-  Object.values(poll.votes || {}).forEach(vote => counts[vote]++);
 
   questionEl.textContent = poll.question + (poll.closed ? " [CLOSED]" : "");
   optionsEl.innerHTML = "";
 
-  poll.options.forEach((option, i) => {
+  poll.options.forEach(option => {
     const li = document.createElement("li");
-    li.textContent = `${option} - ${counts[i]} Stimmen`;
+    const votes = poll.votes[option] || 0;
+    li.textContent = `${option} - ${votes} Stimmen`;
     optionsEl.appendChild(li);
   });
+
+  if (timerEl) timerEl.textContent = poll.closed ? "Poll closed" : `Time left: ${poll.remaining}s`;
 });
