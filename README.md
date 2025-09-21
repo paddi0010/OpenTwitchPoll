@@ -1,5 +1,4 @@
-OpenTwitchPoll is a simple tool for Twitch streamers to create and manage live polls directly in chat. Even for non-affiliate streamers.
-
+# OpenTwitchPoll
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
 [![Node.js Version](https://img.shields.io/badge/Node.js-%3E=18-brightgreen)](https://nodejs.org/)
 
