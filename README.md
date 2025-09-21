@@ -15,7 +15,7 @@ This tool is under development therefore may contain bugs or unfinished features
 | Commands | Better error messages for invalid commands | Planned | High | e.g., `!vote 99`, `!poll Test?` without options |
 | Overlay | Show closed poll indication | Planned | Medium | e.g., overlay text or fade effect |
 | Overlay | Customizable layout / CSS per option | Planned | Low | Optional visual improvements |
-| Bot / Backend | Persistent poll storage | Planned | High | Use JSON / DB to survive bot restarts |
+| Bot / Backend | Persistent poll storage | Planned | Medium | Use JSON / DB to survive bot restarts |
 | Bot / Backend | Logging & debugging improvements | Planned | Medium | Votes, errors, connections |
 | Bot / Backend | Auto-update mechanism | Planned | Low | Check for new releases at start |
 | User Experience | Extend `!help` command | Planned | Medium | Include all commands & usage |
