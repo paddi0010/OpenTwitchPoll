@@ -1,7 +1,6 @@
+# OpenTwitchPoll
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
 [![Node.js Version](https://img.shields.io/badge/Node.js-%3E=18-brightgreen)](https://nodejs.org/)
-
-OpenTwitchPoll is a simple tool for Twitch streamers to create and manage live polls directly in chat. Even for non-affiliate streamers.
 
 This tool is under development therefore may contain bugs or unfinished features!
 
@@ -10,7 +9,7 @@ This tool is under development therefore may contain bugs or unfinished features
 ## ✨ Features
 
 - 🎉 Live polls directly in the Twitch chat
-- Commands are available [here](https://github.com/paddi0010/OpenTwitchPoll/wiki/Commands)
+- ✍️ Commands are available [here](https://github.com/paddi0010/OpenTwitchPoll/wiki/Commands)
 - 🖼 Overlay support via Socket.IO  
 - 🚫 No affiliate status required  
 - ⚡ Startup via `.bat` or Node.js  
