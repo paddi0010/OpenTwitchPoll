@@ -94,33 +94,35 @@ client.on("message", (channel, tags, message, self) => {
           default:
             let pollArgs = [...args];
             let timerValue;
-            const lastArg = pollArgs[pollArgs.length - 1];
-            if (!isNaN(parseInt(lastArg))) {
-              timerValue = parseInt(lastArg);
+            let lastArgRaw = pollArgs[pollArgs.length - 1];
+            let lastArgClean = lastArgRaw.replace(/[^\d]/g, "").trim(); 
+
+            if (lastArgClean && !isNaN(parseInt(lastArgClean))) {
+              timerValue = parseInt(lastArgClean);
               pollArgs.pop();
             }
 
-            // starting poll
-            const pollResult = pollCommand.execute(
-              client,
-              channel,
-              tags,
-              pollArgs,
-              currentPoll
-            );
-            if (pollResult) currentPoll = pollResult.currentPoll;
 
-            if (currentPoll && timerValue) {
+            // start poll
+            const pollResult = pollCommand.execute(client, channel, tags, pollArgs, currentPoll);
+
+            if (pollResult && pollResult.currentPoll && pollResult.created) {
+              currentPoll = pollResult.currentPoll;
+
               if (timerValue) {
                 currentPoll.timer = timerValue;
                 currentPoll.remaining = timerValue;
+
+                client.say(channel,`🗳️ New poll started: ${currentPoll.question} | Options: ${currentPoll.options.join( ", ")} | Auto-close in ${timerValue}s`);
+
                 startTimer(channel);
+              } else {
+                client.say(channel, `🗳️ New poll started: ${currentPoll.question} | Options: ${currentPoll.options.join(", ")}`);
               }
 
-              // Chatnachricht mit korrektem Timer
-              client.say(channel, `🗳️ New poll started: ${currentPoll.question} | Options: ${currentPoll.options.join(", ")}${timerValue ? ` | Auto-close in ${timerValue}s` : ""}`);
               updatePoll(currentPoll);
             }
+            break;
         }
       }
       break;

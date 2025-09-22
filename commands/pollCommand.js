@@ -1,46 +1,35 @@
 module.exports = {
   name: "poll",
-  description: "Start a new poll",
+  description: "Startet eine neue Umfrage.",
   execute(client, channel, tags, args, currentPoll) {
+  
     if (currentPoll && !currentPoll.closed) {
       client.say(channel, "⚠️ A poll is already running. Close it first with !poll close.");
-      return { currentPoll };
+      return { currentPoll, created: false };
     }
 
-    const input = args.join(" ").split("?");
-    if (input.length < 2) {
-      client.say(channel, "⚠️ Invalid poll format. Use: !poll <question>? <option1>, <option2>, ... [timer]");
-      return { currentPoll };
+    if (args.length < 2) {
+      client.say(channel, "⚠️ Usage: !poll <question> option1, option2, option3 ...");
+      return { currentPoll, created: false };
     }
 
-    const question = input[0].trim() + "?";
-    let optionsStr = input[1].trim();
-
-    // Prüfen, ob letzte „Option“ eine Zahl (Timer) ist
-    let timer = 60; // default
-    const lastSpaceIndex = optionsStr.lastIndexOf(" ");
-    const lastPart = optionsStr.slice(lastSpaceIndex + 1);
-    if (!isNaN(parseInt(lastPart))) {
-      timer = parseInt(lastPart);
-      optionsStr = optionsStr.slice(0, lastSpaceIndex); // Zahl aus Optionen entfernen
-    }
-
-    const options = optionsStr
-      .split(",")
-      .map(o => o.trim())
-      .filter(o => o.length > 0);
+    const question = args[0];
+    const options = args.slice(1).join(" ").split(",").map(o => o.trim()).filter(o => o.length > 0);
 
     if (options.length < 2) {
-      client.say(channel, "⚠️ You must provide at least 2 options for a poll.");
-      return { currentPoll };
+      client.say(channel, "⚠️ You need at least 2 options for the poll.");
+      return { currentPoll, created: false };
     }
 
-    currentPoll = {
+    const newPoll = {
       question,
       options,
       votes: {},
       closed: false,
+      timer: null,
+      remaining: null,
     };
-    return { currentPoll };
-  }
+
+    return { currentPoll: newPoll, created: true };
+  },
 };
