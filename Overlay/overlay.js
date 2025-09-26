@@ -1,5 +1,6 @@
 const socket = io("http://localhost:4000"); // Overlay-Server
 
+
 const questionEl = document.getElementById("question");
 const optionsEl = document.getElementById("options");
 const timerEl = document.getElementById("timer");
