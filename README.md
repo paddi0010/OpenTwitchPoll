@@ -8,6 +8,7 @@ This tool is under development therefore may contain bugs or unfinished features
 
 | Category       | Feature / Task | Priority | Status | Description |
 |----------------|----------------|----------|--------|-------------|
+| Feature ✨      | Separate admin application (UI) | Low | Open | Standalone interface to manage bot, commands, polls, and settings |
 | Feature ✨      | Overlay: highlight leading option in green | High | Open | Highlight the option with the most votes like on Twitch |
 | Feature ✨      | Overlay: bar chart for vote distribution | Medium | Open | Optional: visual bars showing vote counts per option |
 | Feature ✨      | Automatic timer for polls without time | High | Open | Default 60s if no time is provided |
