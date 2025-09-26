@@ -29,8 +29,8 @@ function startTimer(channel) {
   if (!currentPoll || !currentPoll.timer) return;
 
   if (timerInterval) clearInterval(timerInterval);
-
   currentPoll.remaining = currentPoll.timer;
+
   updatePoll(currentPoll);
 
   timerInterval = setInterval(() => {
@@ -56,79 +56,75 @@ function startTimer(channel) {
 client.on("message", (channel, tags, message, self) => {
   if (self) return;
 
-  const [cmd, ...args] = message.trim().split(" ");
+  const parts = message.trim().split(" ");
+  const cmd = parts[0].toLowerCase();
+  const argsRaw = message.trim().substring(cmd.length).trim();
 
-  switch (cmd.toLowerCase()) {
+  switch (cmd) {
     case "!poll":
-      if (args.length === 0) {
-        const result = pollCommand.execute(client, channel, tags, args, currentPoll);
-        if (result) currentPoll = result.currentPoll;
-        updatePoll(currentPoll);
-      } else {
-        const subcmd = args[0].toLowerCase();
+      if (!argsRaw) {
+        client.say(channel, "⚠️ Usage: !poll <question> option1, option2, ... [timer]");
+        return;
+      }
 
-        switch (subcmd) {
-          case "list":
-            const listResult = listCommand.execute(client, channel, tags, args.slice(1), currentPoll);
-            if (listResult) currentPoll = listResult.currentPoll;
-            break;
+      const subcmd = argsRaw.split(" ")[0].toLowerCase();
 
-          case "close":
-            if (!currentPoll) {
-              client.say(channel, "⚠️ No poll is currently running.");
-            } else {
-              const closeResult = closeCommand.execute(client, channel, tags, args.slice(1), currentPoll);
-              if (closeResult) currentPoll = closeResult.currentPoll;
-              updatePoll(currentPoll);
-              if (timerInterval) clearInterval(timerInterval);
-            }
-            break;
+      switch (subcmd) {
+        case "list":
+          const listResult = listCommand.execute(client, channel, tags, argsRaw.substring(5).trim(), currentPoll);
+          if (listResult) currentPoll = listResult.currentPoll;
+          break;
 
-          case "clear":
-            const clearResult = clearCommand.execute(client, channel, tags, args.slice(1), currentPoll);
-            if (clearResult) currentPoll = clearResult.currentPoll;
+        case "close":
+          if (!currentPoll) {
+            client.say(channel, "⚠️ No poll is currently running.");
+          } else {
+            const closeResult = closeCommand.execute(client, channel, tags, argsRaw.substring(6).trim(), currentPoll);
+            if (closeResult) currentPoll = closeResult.currentPoll;
             updatePoll(currentPoll);
             if (timerInterval) clearInterval(timerInterval);
-            break;
+          }
+          break;
 
-          default:
-            let pollArgs = [...args];
-            let timerValue;
-            let lastArgRaw = pollArgs[pollArgs.length - 1];
-            let lastArgClean = lastArgRaw.replace(/[^\d]/g, "").trim(); 
+        case "clear":
+          const clearResult = clearCommand.execute(client, channel, tags, argsRaw.substring(6).trim(), currentPoll);
+          if (clearResult) currentPoll = clearResult.currentPoll;
+          updatePoll(currentPoll);
+          if (timerInterval) clearInterval(timerInterval);
+          break;
 
-            if (lastArgClean && !isNaN(parseInt(lastArgClean))) {
-              timerValue = parseInt(lastArgClean);
-              pollArgs.pop();
+        default:
+          let timerValue = null;
+          let pollInput = argsRaw;
+
+          const lastWord = argsRaw.split(" ").pop();
+          if (/^\d+$/.test(lastWord)) {
+            timerValue = parseInt(lastWord, 10);
+            pollInput = argsRaw.substring(0, argsRaw.lastIndexOf(lastWord)).trim();
+          }
+
+          const pollResult = pollCommand.execute(client, channel, tags, pollInput, currentPoll);
+
+          if (pollResult && pollResult.currentPoll && pollResult.created) {
+            currentPoll = pollResult.currentPoll;
+
+            if (timerValue) {
+              currentPoll.timer = timerValue;
+              currentPoll.remaining = timerValue;
+
+              client.say(channel,`🗳️ New poll started: ${currentPoll.question} | Options: ${currentPoll.options.join(", ")} | Auto-close in ${timerValue}s`);
+              startTimer(channel);
+            } else {
+              client.say(channel, `🗳️ New poll started: ${currentPoll.question} | Options: ${currentPoll.options.join(", ")}`);
             }
-
-
-            // start poll
-            const pollResult = pollCommand.execute(client, channel, tags, pollArgs, currentPoll);
-
-            if (pollResult && pollResult.currentPoll && pollResult.created) {
-              currentPoll = pollResult.currentPoll;
-
-              if (timerValue) {
-                currentPoll.timer = timerValue;
-                currentPoll.remaining = timerValue;
-
-                client.say(channel,`🗳️ New poll started: ${currentPoll.question} | Options: ${currentPoll.options.join( ", ")} | Auto-close in ${timerValue}s`);
-
-                startTimer(channel);
-              } else {
-                client.say(channel, `🗳️ New poll started: ${currentPoll.question} | Options: ${currentPoll.options.join(", ")}`);
-              }
-
-              updatePoll(currentPoll);
-            }
-            break;
-        }
+            updatePoll(currentPoll);
+          }
+          break;
       }
       break;
 
     case "!vote":
-      const voteResult = voteCommand.execute(client, channel, tags, args, currentPoll);
+      const voteResult = voteCommand.execute(client, channel, tags, parts.slice(1), currentPoll);
       if (voteResult) currentPoll = voteResult.currentPoll;
       updatePoll(currentPoll);
       break;
