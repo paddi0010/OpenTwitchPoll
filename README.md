@@ -11,12 +11,12 @@ This tool is under development therefore may contain bugs or unfinished features
 | Feature ✨      | Separate admin application (UI) | Low | Open | Standalone interface to manage bot, commands, polls, and settings |
 | Feature ✨      | Overlay: highlight leading option in green | High | Open | Highlight the option with the most votes like on Twitch |
 | Feature ✨      | Overlay: bar chart for vote distribution | Medium | Open | Optional: visual bars showing vote counts per option |
-| Feature ✨      | Automatic timer for polls without time | High | Open | Default 60s if no time is provided |
+| Feature ✨      | Automatic timer for polls without time | High | ✅ | Default 60s if no time is provided |
 | Feature ✨      | Expand !help command | Medium | Open | Separate admin vs user commands + explain timer usage |
-| Bugfix 🐛       | Fix timer edge cases | High | Open | Handle polls with special characters or extra spaces |
-| Bugfix 🐛       | Update overlay when poll is closed/cleared | High | Open | Overlay should immediately show "Closed" or clear content |
-| Bugfix 🐛       | Reset votes for consecutive polls | Medium | Open | Old votes should not carry over |
-| Bugfix 🐛       | Bot stability on network disconnect / server crash | High | Open | Prevent crashes when Twitch or server disconnects |
+| Bugfix 🐛       | Fix timer edge cases | High | ✅ | Handle polls with special characters or extra spaces |
+| Bugfix 🐛       | Update overlay when poll is closed/cleared | High | ✅ | Overlay should immediately show "Closed" or clear content |
+| Bugfix 🐛       | Reset votes for consecutive polls | Medium | ✅ | Old votes should not carry over |
+| Bugfix 🐛       | Bot stability on network disconnect / server crash | High | ✅ | Prevent crashes when Twitch or server disconnects |
 | Improvement ⚙ | Refactor script.js | Medium | Open | Make timer parsing more robust and improve structure |
 | Improvement ⚙ | Refactor pollCommand.js | Medium | Open | Separate parsing of question/options from poll creation |
 | Improvement ⚙ | Optimize overlay.js | Medium | Open | Only update DOM when changes occur; clean code |
