@@ -8,9 +8,9 @@ This tool is under development therefore may contain bugs or unfinished features
 
 | Category | Feature / Improvement | Status | Priority | Notes |
 |----------|---------------------|--------|---------|-------|
-| Poll Management | Poll history / store past polls | Planned | Medium | Useful for stream recap |
-| Poll Management | Poll timer (auto-close after X minutes) | Implemented | - | Helps with timed polls |
-| Poll Management | Limit votes per user | Planned | High | Prevent multiple votes per user |
+| Poll Management | Poll history / store past polls | Planned | Low | Useful for stream recap |
+| Poll Management | Poll timer (auto-close after X minutes) | Implemented |  - | Helps with timed polls |
+| Poll Management | Limit votes per user | Implemented |  - | Prevent multiple votes per user |
 | Commands | `!poll restart` / `!poll reopen` | Planned | Medium | Reopen a closed poll |
 | Commands | Better error messages for invalid commands | Planned | High | e.g., `!vote 99`, `!poll Test?` without options |
 | Overlay | Show closed poll indication | Planned | Medium | e.g., overlay text or fade effect |
