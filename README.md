@@ -4,9 +4,7 @@
 
 This tool is under development therefore may contain bugs or unfinished features!
 
-## 📋 Backlog
-
-# 🗂 OpenTwitchPoll v0.2.1 – Backlog
+# 🗂 Backlog
 
 | Category       | Feature / Task | Priority | Status | Description |
 |----------------|----------------|----------|--------|-------------|
