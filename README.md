@@ -1,19 +1,34 @@
-
-OpenTwitchPoll is a simple tool for Twitch streamers to create and manage live polls directly in chat – even for non-affiliate streamers.
-
+# OpenTwitchPoll
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
-               [![Node.js Version](https://img.shields.io/badge/Node.js-%3E=18-brightgreen)](https://nodejs.org/)
+[![Node.js Version](https://img.shields.io/badge/Node.js-%3E=18-brightgreen)](https://nodejs.org/)
 
-OpenTwitchPoll is a simple tool for Twitch streamers to create and manage live polls directly in chat – even for non-affiliate streamers.
+This tool is under development therefore may contain bugs or unfinished features!
 
-!This tool is under development therefore may contain bugs or unfinished features!
+## 📋 Backlog
+
+| Category | Feature / Improvement | Status | Priority | Notes |
+|----------|---------------------|--------|---------|-------|
+| Poll Management | Poll history / store past polls | Planned ⚠️ | Low | Useful for stream recap |
+| Poll Management | Poll timer (auto-close after X minutes) | Implemented  |  ✅ | Helps with timed polls |
+| Poll Management | Limit votes per user | Implemented |  ✅ | Prevent multiple votes per user |
+| Commands | `!poll restart` / `!poll reopen` | Planned ⚠️ | Medium | Reopen a closed poll |
+| Commands | Better error messages for invalid commands | Planned ⚠️ | High | e.g., `!vote 99`, `!poll Test?` without options |
+| Overlay | Show closed poll indication | Planned ⚠️ | Medium | e.g., overlay text or fade effect |
+| Overlay | Customizable layout / CSS per option | Planned ⚠️ | Low | Optional visual improvements |
+| Bot / Backend | Persistent poll storage | Planned ⚠️ | Medium | Use JSON / DB to survive bot restarts |
+| Bot / Backend | Logging & debugging improvements | Planned ⚠️ | Medium | Votes, errors, connections |
+| Bot / Backend | Auto-update mechanism | Planned ⚠️ | Low | Check for new releases at start |
+| Bot | Code cleanup/ better structrue/comments | Planned ⚠️ | Medium | for better code structure |
+| User Experience | Extend `!help` command | Planned ⚠️ | Medium | Include all commands & usage |
+| User Experience | Multi-language support | Planned ⚠️ | Low | Optional for international streams |
+
 
 ---
 
 ## ✨ Features
 
-- 🎉 Live polls directly in the Twitch chat  
-- 📝 Easy commands: `!poll start <poll>` & `!vote <vote>`  
+- 🎉 Live polls directly in the Twitch chat
+- ✍️ Commands are available [here](https://github.com/paddi0010/OpenTwitchPoll/wiki/Commands)
 - 🖼 Overlay support via Socket.IO  
 - 🚫 No affiliate status required  
 - ⚡ Startup via `.bat` or Node.js  
@@ -50,8 +65,9 @@ OpenTwitchPoll is a simple tool for Twitch streamers to create and manage live p
    - On the first run, dependencies will be installed automatically  
    - After that, you will be prompted to enter your Twitch username  
 
+---
 
-## Port using
-- Port **3001** used for Authentication
+## 🌐 Port Usage
 
-- Port **4000** used for Poll Overlay Server
+- Port **3001** → Authentication  
+- Port **4000** → Poll Overlay Server  
