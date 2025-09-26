@@ -21,8 +21,8 @@ This tool is under development therefore may contain bugs or unfinished features
 | Improvement ⚙ | Optimize overlay.js | Medium | Open | Only update DOM when changes occur; clean code |
 | Improvement ⚙ | Improve logging | Low | Open | Show debug logs only in debug mode |
 | Idea 💡        | Poll history storage | Low | Open | Store last 5 polls for later reference |
-| Idea 💡        | Bot announces winning option after poll | Medium | Open | Display "Winning option is …" in chat |
-| Idea 💡        | Countdown animation in overlay | Medium | Open | Animated bar or pulse for last 5 seconds |
+| Idea 💡        | Bot announces winning option after poll | Low | Open | Display "Winning option is …" in chat |
+| Idea 💡        | Countdown animation in overlay | Low | Open | Animated bar or pulse for last 5 seconds |
 | Idea 💡        | Multi-language support | Low | Open | Toggle between English and German in chat and overlay |
 
 
