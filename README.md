@@ -6,21 +6,27 @@ This tool is under development therefore may contain bugs or unfinished features
 
 ## 📋 Backlog
 
-| Category | Feature / Improvement | Status | Priority | Notes |
-|----------|---------------------|--------|---------|-------|
-| Poll Management | Poll history / store past polls | Planned ⚠️ | Low | Useful for stream recap |
-| Poll Management | Poll timer (auto-close after X minutes) | Implemented  |  ✅ | Helps with timed polls |
-| Poll Management | Limit votes per user | Implemented |  ✅ | Prevent multiple votes per user |
-| Commands | `!poll restart` / `!poll reopen` | Planned ⚠️ | Medium | Reopen a closed poll |
-| Commands | Better error messages for invalid commands | Planned ⚠️ | High | e.g., `!vote 99`, `!poll Test?` without options |
-| Overlay | Show closed poll indication | Planned ⚠️ | Medium | e.g., overlay text or fade effect |
-| Overlay | Customizable layout / CSS per option | Planned ⚠️ | Low | Optional visual improvements |
-| Bot / Backend | Persistent poll storage | Planned ⚠️ | Medium | Use JSON / DB to survive bot restarts |
-| Bot / Backend | Logging & debugging improvements | Planned ⚠️ | Medium | Votes, errors, connections |
-| Bot / Backend | Auto-update mechanism | Planned ⚠️ | Low | Check for new releases at start |
-| Bot | Code cleanup/ better structrue/comments | Planned ⚠️ | Medium | for better code structure |
-| User Experience | Extend `!help` command | Planned ⚠️ | Medium | Include all commands & usage |
-| User Experience | Multi-language support | Planned ⚠️ | Low | Optional for international streams |
+# 🗂 OpenTwitchPoll v0.2.1 – Backlog
+
+| Category       | Feature / Task | Priority | Status | Description |
+|----------------|----------------|----------|--------|-------------|
+| Feature ✨      | Overlay: highlight leading option in green | High | Open | Highlight the option with the most votes like on Twitch |
+| Feature ✨      | Overlay: bar chart for vote distribution | Medium | Open | Optional: visual bars showing vote counts per option |
+| Feature ✨      | Automatic timer for polls without time | High | Open | Default 60s if no time is provided |
+| Feature ✨      | Expand !help command | Medium | Open | Separate admin vs user commands + explain timer usage |
+| Bugfix 🐛       | Fix timer edge cases | High | Open | Handle polls with special characters or extra spaces |
+| Bugfix 🐛       | Update overlay when poll is closed/cleared | High | Open | Overlay should immediately show "Closed" or clear content |
+| Bugfix 🐛       | Reset votes for consecutive polls | Medium | Open | Old votes should not carry over |
+| Bugfix 🐛       | Bot stability on network disconnect / server crash | High | Open | Prevent crashes when Twitch or server disconnects |
+| Improvement ⚙ | Refactor script.js | Medium | Open | Make timer parsing more robust and improve structure |
+| Improvement ⚙ | Refactor pollCommand.js | Medium | Open | Separate parsing of question/options from poll creation |
+| Improvement ⚙ | Optimize overlay.js | Medium | Open | Only update DOM when changes occur; clean code |
+| Improvement ⚙ | Improve logging | Low | Open | Show debug logs only in debug mode |
+| Idea 💡        | Poll history storage | Low | Open | Store last 5 polls for later reference |
+| Idea 💡        | Bot announces winning option after poll | Medium | Open | Display "Winning option is …" in chat |
+| Idea 💡        | Countdown animation in overlay | Medium | Open | Animated bar or pulse for last 5 seconds |
+| Idea 💡        | Multi-language support | Low | Open | Toggle between English and German in chat and overlay |
+
 
 
 ---
