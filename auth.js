@@ -1,5 +1,5 @@
 const express = require("express");
-const open = require("open");
+const open = require("open").default | require("open");
 const readline = require("readline");
 const fetch = require("node-fetch");
 const fs = require("fs");
