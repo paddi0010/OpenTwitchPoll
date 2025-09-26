@@ -18,7 +18,7 @@ This tool is under development therefore may contain bugs or unfinished features
 | Bot / Backend | Persistent poll storage | Planned | Medium | Use JSON / DB to survive bot restarts |
 | Bot / Backend | Logging & debugging improvements | Planned | Medium | Votes, errors, connections |
 | Bot / Backend | Auto-update mechanism | Planned | Low | Check for new releases at start |
-| Bot | Code cleanup/ better structrue/comments | Medium | for better code structure |
+| Bot | Code cleanup/ better structrue/comments | Planned | Medium | for better code structure |
 | User Experience | Extend `!help` command | Planned | Medium | Include all commands & usage |
 | User Experience | Multi-language support | Planned | Low | Optional for international streams |
 
